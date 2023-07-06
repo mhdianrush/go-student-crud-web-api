@@ -12,13 +12,43 @@
     />
   </head>
   <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg bg-success">
+      <div class="container">
+        <a class="navbar-brand text-light" href="/student">Student's Web</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active text-light" href="">Created By: </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active text-light" href=""
+                >mhdianrush@gmail.com</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- end of navbar -->
     <div class="container mt-5">
-      <h2>Student Data</h2>
-      <a href="/student/add" class="btn btn-sm btn-primary">Add Data</a>
+      <h2>Student's Data</h2>
+      <a href="/api/student/add" class="btn btn-sm btn-primary">Add Data</a>
       <hr />
-      <table class="table table-sriped-table-hover">
+      <table class="table table-sriped table-hover">
         <thead>
-          <tr>
+          <tr class="table-warning">
             <th>Full Name</th>
             <th>Student Unique Id</th>
             <th>Gender</th>
@@ -29,6 +59,9 @@
             <th>Action</th>
           </tr>
         </thead>
+        <tbody>
+          <tr class="table-secondary"></tr>
+        </tbody>
       </table>
     </div>
   </body>
