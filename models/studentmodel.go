@@ -82,3 +82,46 @@ func (s *StudentModel) Create(student entities.Student) bool {
 	}
 	return lastInsertId > 0
 }
+
+func (s *StudentModel) Find(id int, student *entities.Student) error {
+	return s.Connection.QueryRow("select * from student where id = ?", id).Scan(
+		&student.Id,
+		&student.FullName,
+		&student.StudentUniqueId,
+		&student.Gender,
+		&student.BirthPlace,
+		&student.BirthDay,
+		&student.Address,
+		&student.PhoneNumber,
+	)
+}
+
+func (s *StudentModel) Update(student entities.Student) error {
+	_, err := s.Connection.Exec(
+		`update student set 
+		full_name = ?,
+		student_unique_id = ?,
+		gender = ?,
+		birth_place = ?,
+		birth_day = ?,
+		address = ?,
+		phone_number = ?
+		where id = ?`,
+		student.FullName,
+		student.StudentUniqueId,
+		student.Gender,
+		student.BirthPlace,
+		student.BirthDay,
+		student.Address,
+		student.PhoneNumber,
+		student.Id,
+	)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *StudentModel) Delete(id int) {
+	s.Connection.Exec(`delete from student where id = ?`, id)
+}

@@ -1,7 +1,7 @@
 package entities
 
 type Student struct {
-	Id              uint   `json:"id"`
+	Id              int    `json:"id"`
 	FullName        string `validate:"required" label:"Full Name" json:"full_name"`
 	StudentUniqueId string `validate:"required" label:"Student Unique Id" json:"student_unique_id"`
 	Gender          string `validate:"required" label:"Gender" json:"gender"`
