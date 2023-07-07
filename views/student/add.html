@@ -51,6 +51,12 @@
           >
           <hr />
 
+          {{if .message }}
+          <div class="alert alert-success">
+            {{ .message }}
+          </div>
+          {{ end }}
+
           <form action="/api/student/add" method="post">
             <div class="form-group">
               <label for="">Full Name</label>

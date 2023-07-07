@@ -6,14 +6,23 @@ import (
 	"net/http"
 
 	"github.com/mhdianrush/go-student-crud-web-api/entities"
+	"github.com/mhdianrush/go-student-crud-web-api/models"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
+	student, err := models.NewStudentModel().FindAll()
+	if err != nil {
+		panic(err)
+	}
+	data := map[string]any {
+		"student": student,
+	}
+
 	temp, err := template.ParseFiles("views/student/index.html")
 	if err != nil {
 		panic(err)
 	}
-	temp.Execute(w, nil)
+	temp.Execute(w, data)
 }
 
 func Add(w http.ResponseWriter, r *http.Request) {
@@ -23,7 +32,9 @@ func Add(w http.ResponseWriter, r *http.Request) {
 			panic(err)
 		}
 		temp.Execute(w, nil)
-	} else if r.Method == http.MethodPost {
+	}
+
+	if r.Method == http.MethodPost {
 		err := r.ParseForm()
 		if err != nil {
 			panic(err)
@@ -39,9 +50,18 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		student.Address = r.FormValue("address")
 		student.PhoneNumber = r.FormValue("phone_number")
 
-		fmt.Println(student)
-	}
+		models.NewStudentModel().Create(student)
 
+		data := map[string]any{
+			"message": "data has been saved",
+		}
+
+		temp, err := template.ParseFiles("views/student/add.html")
+		if err != nil {
+			panic(err)
+		}
+		temp.Execute(w, data)
+	}
 }
 
 func Edit(w http.ResponseWriter, r *http.Request) {

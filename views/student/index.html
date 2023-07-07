@@ -10,6 +10,12 @@
       integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
       crossorigin="anonymous"
     />
+    <style>
+      tr {
+        text-align: center;
+        vertical-align: middle;
+      }
+    </style>
   </head>
   <body>
     <!-- navbar -->
@@ -46,7 +52,7 @@
       <h2>Student's Data</h2>
       <a href="/api/student/add" class="btn btn-sm btn-primary">Add Data</a>
       <hr />
-      <table class="table table-sriped table-hover">
+      <table class="table table-sriped table-hover table-bordered">
         <thead>
           <tr class="table-warning">
             <th>Full Name</th>
@@ -60,7 +66,30 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="table-secondary"></tr>
+          {{ range .student }}
+          <tr class="table-secondary">
+            <td>{{ .FullName }}</td>
+            <td>{{ .StudentUniqueId }}</td>
+            <td>{{ .Gender }}</td>
+            <td>{{ .BirthPlace }}</td>
+            <td>{{ .BirthDay }}</td>
+            <td>{{ .Address }}</td>
+            <td>{{ .PhoneNumber }}</td>
+            <td>
+              <a
+                href="/api/student/edit?id={{ .Id }}"
+                class="btn btn-sm btn-warning"
+                >Edit</a
+              >
+              <a
+                href="/api/student/delete?id={{ .Id }}"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Are You Sure To Delete This Data?')"
+                >Delete</a
+              >
+            </td>
+          </tr>
+          {{ end }}
         </tbody>
       </table>
     </div>
