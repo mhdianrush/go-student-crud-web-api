@@ -103,7 +103,7 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 
 		var student entities.Student
 
-		student.Id, _ = strconv.Atoi(r.FormValue("id"))
+		student.Id, _ = strconv.ParseInt(r.FormValue("id"), 10, 64)
 		student.FullName = r.FormValue("full_name")
 		student.StudentUniqueId = r.FormValue("student_unique_id")
 		student.Gender = r.FormValue("gender")
