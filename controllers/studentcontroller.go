@@ -81,7 +81,7 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 		queryString := r.URL.Query()
 		id, _ := strconv.ParseInt(queryString.Get("id"), 10, 64)
 
-		models.NewStudentModel().Find(int(id), &student)
+		models.NewStudentModel().Find(id, &student)
 
 		data := map[string]any{
 			"student": student,

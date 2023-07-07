@@ -83,7 +83,7 @@ func (s *StudentModel) Create(student entities.Student) bool {
 	return lastInsertId > 0
 }
 
-func (s *StudentModel) Find(id int, student *entities.Student) error {
+func (s *StudentModel) Find(id int64, student *entities.Student) error {
 	return s.Connection.QueryRow("select * from student where id = ?", id).Scan(
 		&student.Id,
 		&student.FullName,
