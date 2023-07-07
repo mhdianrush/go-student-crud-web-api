@@ -6,15 +6,18 @@ import (
 	"net/http"
 
 	"github.com/mhdianrush/go-student-crud-web-api/entities"
+	"github.com/mhdianrush/go-student-crud-web-api/libraries"
 	"github.com/mhdianrush/go-student-crud-web-api/models"
 )
+
+var validation = libraries.NewValidation()
 
 func Index(w http.ResponseWriter, r *http.Request) {
 	student, err := models.NewStudentModel().FindAll()
 	if err != nil {
 		panic(err)
 	}
-	data := map[string]any {
+	data := map[string]any{
 		"student": student,
 	}
 
@@ -50,10 +53,17 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		student.Address = r.FormValue("address")
 		student.PhoneNumber = r.FormValue("phone_number")
 
-		models.NewStudentModel().Create(student)
-
-		data := map[string]any{
-			"message": "data has been saved",
+		var data = make(map[string]any)
+		// validation check
+		vErrors := validation.Struct(student)
+		if vErrors != nil {
+			// so that the value will keep saving while click the save button without fullfilled all input
+			data["student"] = student
+			
+			data["validation"] = vErrors
+		} else {
+			data["message"] = "data has been saved"
+			models.NewStudentModel().Create(student)
 		}
 
 		temp, err := template.ParseFiles("views/student/add.html")

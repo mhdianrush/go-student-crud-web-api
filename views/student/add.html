@@ -52,47 +52,83 @@
           <hr />
 
           {{if .message }}
-          <div class="alert alert-success">
-            {{ .message }}
-          </div>
+          <div class="alert alert-success">{{ .message }}</div>
           {{ end }}
 
           <form action="/api/student/add" method="post">
             <div class="form-group">
               <label for="">Full Name</label>
-              <input type="text" name="full_name" class="form-control" />
+              <input
+                type="text"
+                name="full_name"
+                value="{{ .student.FullName }}"
+                class="form-control {{ if .validation.FullName }} is-invalid {{ end }}"
+              />
+              <div class="invalid-feedback">{{ .validation.FullName }}</div>
             </div>
             <div class="form-group">
               <label for="">Student Unique ID</label>
               <input
                 type="text"
                 name="student_unique_id"
-                class="form-control"
+                value="{{ .student.StudentUniqueId }}"
+                class="form-control {{ if .validation.StudentUniqueId }} is-invalid {{ end }}"
               />
+              <div class="invalid-feedback">
+                {{ .validation.StudentUniqueId }}
+              </div>
             </div>
             <div class="form-group">
               <label for="">Gender</label>
-              <select name="gender" class="form-control">
+              <select
+                name="gender"
+                value="{{ .student.Gender }}"
+                class="form-control {{ if .validation.Gender }} is-invalid {{ end }}"
+              >
                 <option value="">choose gender</option>
-                <option value="1">Male</option>
-                <option value="2">Female</option>
+                <option {{ if eq .student.Gender `1` }} selected {{ end }} value="1">Male</option>
+                <option {{ if eq .student.Gender `2` }} selected {{ end }} value="2">Female</option>
               </select>
+              <div class="invalid-feedback">{{ .validation.Gender }}</div>
             </div>
             <div class="form-group">
               <label for="">Birth Place</label>
-              <input type="text" name="birth_place" class="form-control" />
+              <input
+                type="text"
+                name="birth_place"
+                value="{{ .student.BirthPlace }}"
+                class="form-control {{ if .validation.BirthPlace }} is-invalid {{ end }}"
+              />
+              <div class="invalid-feedback">{{ .validation.BirthPlace }}</div>
             </div>
             <div class="form-group">
               <label for="">Birth Day</label>
-              <input type="date" name="birth_day" class="form-control" />
+              <input
+                type="date"
+                name="birth_day"
+                value="{{ .student.BirthDay }}"
+                class="form-control {{ if .validation.BirthDay }} is-invalid {{ end }}"
+              />
+              <div class="invalid-feedback">{{ .validation.BirthDay }}</div>
             </div>
             <div class="form-group">
               <label for="">Address</label>
-              <textarea name="address" class="form-control"></textarea>
+              <textarea
+                name="address"
+                value="{{ .student.Address }}"
+                class="form-control {{ if .validation.Address }} is-invalid {{ end }}"
+              ></textarea>
+              <div class="invalid-feedback">{{ .validation.Address }}</div>
             </div>
             <div class="form-group">
               <label for="">Phone Number</label>
-              <input type="text" name="phone_number" class="form-control" />
+              <input
+                type="text"
+                name="phone_number"
+                value="{{ .student.PhoneNumber }}"
+                class="form-control {{ if .validation.PhoneNumber }} is-invalid {{ end }}"
+              />
+              <div class="invalid-feedback">{{ .validation.PhoneNumber }}</div>
             </div>
             <br />
             <div class="float-end">
